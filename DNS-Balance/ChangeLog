@@ -1,0 +1,157 @@
+2010-08-28  ARAKI Yasuhiro  <ar@debian.org>
+
+	* dns_balance.rb: Now use Maxmind's BGP ASN information to lookup.
+
+2009-08-08  ARAKI Yasuhiro  <ar@debian.org>
+
+	* dns_balance.rb (#run): Fix to apply JRuby. At JRuby, Type is important for UDPSocket::new.bind(Sting a, Fixnum b).
+
+2009-04-13  ARAKI Yasuhiro  <araki@hp.com>
+
+	* dns_balance.rb (srun): Support SIGHUP. When SIGHUP is received, /var/log/dns_balance.log is renewed. Please set owner and group of "/var/log/dns_balance.log" to "nobody (65534)".
+
+2009-04-10  ARAKI Yasuhiro  <ar@debian.org>
+
+	* dns_balance.rb (select_namespace): Change: Default surrogates are select from NorthAmerica.
+	(run): Change to use "GeoIP" as defaut. (no need to use --geoip)
+
+2008-02-05  ARAKI Yasuhiro  <ar@debian.org>
+
+	* dns_balance.rb: 
+	- Change to run default daemon mode. If you want to run foreground, run with '-F'.
+	- Add '--logfile' option (default /var/log/dns_balance.log)
+	(run): Change to run by nobody (uid=65534)
+
+	* multilog.rb (MultiLog::log): Add timestamp.
+
+2008-02-04  ARAKI Yasuhiro  <ar@debian.org>
+
+	* dns_balance.rb (select_namespace): コマンドラインオプションに
+	--country と -p ポート番号 を追加。
+
+2005-06-09  YOKOTA Hiroshi  <yokota@netlab.cs.tsukuba.ac.jp>
+
+	* dns_balance.rb: コマンドラインオプションの解析を "getopts.rb" か
+	ら "optparse.rb" の物にする。
+	Ruby 1.8 でサポートされた Socket::do_not_reverse_lookup の設定によ
+	り DNS を意図せずに使わない様にする事が出来るようになったので
+	Socket ではなく UDPSocket が使えるようになった。
+
+2003-02-01  YOKOTA Hiroshi  <yokota@netlab.is.tsukuba.ac.jp>
+
+	* dns_balance.rb: -d オプションによる NS/SOA レコードがキャッシュ
+	サーバを混乱させるようなので削除する事にした。
+
+2003-01-30  YOKOTA Hiroshi  <yokota@netlab.is.tsukuba.ac.jp>
+
+	* dns_balance.rb: SOA レコードが正しく NS レコードと対になっていな
+	かったので直す。
+
+2002-10-13  YOKOTA Hiroshi  <yokota@netlab.is.tsukuba.ac.jp>
+
+	* log_writer.rb : 起動しないバグ修正。カンマが一つ多かった。
+
+2002-10-10  YOKOTA Hiroshi  <yokota@netlab.is.tsukuba.ac.jp>
+
+	* dns_balance.rb: パケットの末尾にゴミを付けてよこす DNS
+	クライアントがあるようだ。パケットの解析法を変える。
+
+2002-10-04  YOKOTA Hiroshi  <yokota@netlab.is.tsukuba.ac.jp>
+
+	* dns_balance.rb: キャッシュサーバがおかしくなる原因は他にあるようだ。
+	元に戻す。
+	* multilog.rb: クラスの汎用度を高める改良。IO クラスの任意の出力
+	ポート(ファイル、ネットワークソケットなど)に出力できるようになる。
+
+2002-09-27  YOKOTA Hiroshi  <yokota@netlab.is.tsukuba.ac.jp>
+
+	* dns_balance.rb: DNS キャッシュサーバの中には同一の内容が複数
+	含まれる返答を受けとるとおかしくなるものがあるようだ。対処する。
+
+2002-09-24  YOKOTA Hiroshi  <yokota@netlab.is.tsukuba.ac.jp>
+
+	* dns_balance.rb: クラスレスネットワークアドレスに対応。
+	これによりアドレスデータベースのラベルが大きく変わる。
+
+	* dns_balance.rb, as_search.rb, cache.rb: whois.ra.net の
+	AS 情報で振り分けられるようにする。AS 調査動作速度の向上の為に
+	キャッシュを設ける。
+	(Thanks! "Hiroshi Funahashi" <bass_effect@yahoo.co.jp>)
+
+2002-09-19  YOKOTA Hiroshi  <yokota@netlab.is.tsukuba.ac.jp>
+
+	* dns_balance.rb: NS,SOA レコードを単独で返せるようにする。
+	SOA レコードの内容を変える。
+
+2002-09-10  YOKOTA Hiroshi  <yokota@netlab.is.tsukuba.ac.jp>
+
+	* dns_balance.rb: 変数 $prefix で DNS Balance のパスを指定できる
+	ようにした
+
+	* dns_balance.rb, multilog.rb, log_writer.rb: 出力を MultiLog
+	クラス経由に変更し、 "-l" オプション削除
+
+2002-09-06  YOKOTA Hiroshi  <yokota@netlab.is.tsukuba.ac.jp>
+
+	* dns_balance.rb: 同時回答数を 5 個から 8 個にする。
+
+	* dns_balance.rb: 可能ならネームサーバの位置を示す NS,SOA レコードを
+	付加するようにする "-d" オプション追加
+
+2002-06-08  YOKOTA Hiroshi  <yokota@netlab.is.tsukuba.ac.jp>
+
+	* dns_ballance.rb : ユーザ定義例外の名前の一部が ruby の例外と
+	被ってしまったので変更。(Thanks! "Hiroshi Funahashi"
+	<bass_effect@yahoo.co.jp>)
+	* * : Cygwin 版 ruby で動く事を確認する
+
+Fri Feb  2 17:54:12 JST 2001
+	* dnsbalance.rb : アドレスデータベースが間違っているとデータベース更新
+	スレッドが止まるのを防ぐ
+
+Fri Dec 22 04:31:57 JST 2000
+	* dns_balance.rb : ANY レコードも受け付けるようにする。
+	これで余計な問い合わせが減り、多少は速度の向上が見込める。
+	* dns_balance.rb : djbdns と協調して動けるように listen する
+	IP アドレスを指定できるようにする
+
+Sun Dec 17 15:06:26 JST 2000
+	* dns_balance.rb : daemontools で動かせるようにログ出力の方法を
+	変更
+
+Thu Nov 30 10:07:16 JST 2000
+	* dns_balance.rb, namespace.rb : アドレスの別名を定義して
+	まとめて管理出来るようにした。
+
+Fri Sep 15 17:18:11 JST 2000
+	* dns_balance.rb : スレッドの競合により意図しない変数の上書きの可能性を
+	修正 (Thanks! TAKAHASHI Masayoshi <maki@inac.co.jp>)
+
+Thu Sep  7 18:05:10 JST 2000
+	* dns_balance.rb : ホスト名に使ってはいけない文字のチェックを
+	追加
+	* dns_balance.rb : 自動更新を5分おきに変更
+
+Fri Aug 25 17:59:40 JST 2000
+	* dns_balance.rb : 選択表の圧縮をやめてみる。こうするとサーバの
+	返答内容に同一の答えが含まれる事になるが、選択効率は若干上がる。
+	問題は resolver がこれをうまく処理できるかだ。
+	* makeringdb.rb : Ring サーバ向け addr ファイル作成スクリプト。
+
+Thu Aug 24 13:33:43 JST 2000
+	* dns_balance.rb : 調査用のログ出力機能を付ける
+	* dns_balance.rb : 任意の IP アドレスで listen させる機能を付けて
+	みたが、あまり使わないような気がするので取り外す
+
+Tue Aug 15 10:58:49 JST 2000
+	* dns_balance.rb : 重みつき選択の方法に間違いがあったのを直す。
+	壊れたパケットに対する返答を強化。
+	* Ver.0.2
+
+Wed Aug  9 00:25:23 JST 2000
+	* dns_balance.rb : 例外処理を使う
+	* makedb.rb : CVS ファイルの内容によってうまくファイルが作成されない
+	バグを直す
+
+Tue Aug  8 12:48:15 JST 2000
+	* Ver.0.1 完成

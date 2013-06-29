@@ -1,0 +1,8 @@
+#!/bin/sh
+cd /usr/share/GeoIP
+wget -O GeoIP.dat.gz -q http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
+if [ -f GeoIP.dat.gz -a -s GeoIP.dat.gz ]; then
+  zcat GeoIP.dat.gz > GeoIP.dat
+  /etc/init.d/dns_balance restart
+  rm GeoIP.dat.gz
+fi

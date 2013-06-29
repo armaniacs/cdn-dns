@@ -1,0 +1,33 @@
+
+      <<Running DNS Balance under daemontools>>
+
+ DNS Balance can running stand alone, but you can use DNS Balance with
+"daemontools" (http://cr.yp.to/daemontools.html).
+
+
+[How to do that]
+
+1. Install daemontools.
+2. Specify where to install DNS Balance. For example,
+   "/foo/bar/dnsbalance/root/".
+   Copy all scripts to "/foo/bar/dnsbalance/root/".
+   And change valuable "$prefix" in "dns_balance.rb". (See
+   README.dns_balance.eng)
+3. Create "run" script and place to "/foo/bar/dnsbalance/".
+
+-<example>--------------------
+#!/bin/sh
+exec 2>&1
+exec softlimit -d 8000000 /usr/local/bin/ruby /foo/bar/dnsbalance/root/dns_balance.rb -i 192.168.0.1 -d balancer.example.com:192.168.0.1
+------------------------------
+
+4. If you want log file, create "/foo/bar/dnsbalance/log/" and setup "multilog".
+   See "daemontools" document.
+   And set sticky bit to "/foo/bar/dnsbalance/". (This is not need for
+   latest version of daemontools)
+
+5. Run "svscan" and create symbolic link to service directry.
+   For example, "cd /service/ ; ln -s /foo/bar/dnsbalance ."
+
+
+                  2002/09/08: YOKOTA Hiroshi (yokota@netlab.is.tsukuba.ac.jp)

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+[ -f /home/yaar/Debian-JP/cdn/DNS-Balance/addr ] || exit 0
+
+cd /home/yaar/Debian-JP/cdn/DNS-Balance/keepd && ruby ./keepd.rb

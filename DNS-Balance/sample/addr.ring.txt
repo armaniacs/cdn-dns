@@ -1,0 +1,108 @@
+# ring.data-hotel.net 8d0b589ed3ed7466ce9ab7479bc0969c
+default,www.ring.gr.jp,210.81.45.28,10000
+default,ftp.ring.gr.jp,210.81.45.28,10000
+# ring.edogawa-u.ac.jp b3e87be0b7d8fd7abd160f78dcf82051
+default,www.ring.gr.jp,210.235.130.17,2200
+default,ftp.ring.gr.jp,210.235.130.17,2200
+# ring.jec.ad.jp 6e57d1300e96c5527599af35b823cde4
+default,www.ring.gr.jp,210.161.150.21,700
+default,ftp.ring.gr.jp,210.161.150.21,700
+# ring.toyama-u.ac.jp 075d7eb92a087ecd965b14ead6ad46d0
+default,www.ring.gr.jp,160.26.1.22,0
+default,ftp.ring.gr.jp,160.26.1.22,0
+# ring.tains.tohoku.ac.jp 075d7eb92a087ecd965b14ead6ad46d0
+default,www.ring.gr.jp,130.34.246.198,0
+default,ftp.ring.gr.jp,130.34.246.198,0
+# ring.etl.go.jp addace7a5a938cc5d417d502ea351894
+default,www.ring.gr.jp,192.50.77.195,1000
+default,ftp.ring.gr.jp,192.50.77.195,1000
+# ring.toyama-ix.net 075d7eb92a087ecd965b14ead6ad46d0
+default,www.ring.gr.jp,210.167.6.130,0
+default,ftp.ring.gr.jp,210.167.6.130,0
+# ring.htcn.ne.jp b24abb8540c3a3f930c97d1c48730683
+default,www.ring.gr.jp,210.167.0.75,1700
+default,ftp.ring.gr.jp,210.167.0.75,1700
+# ring.asahi-net.or.jp addace7a5a938cc5d417d502ea351894
+default,www.ring.gr.jp,202.224.39.15,1000
+default,ftp.ring.gr.jp,202.224.39.15,1000
+# core.ring.gr.jp 075d7eb92a087ecd965b14ead6ad46d0
+default,www.ring.gr.jp,150.29.9.6,0
+default,ftp.ring.gr.jp,150.29.9.6,0
+# ring.crl.go.jp aee8c28793e407b274304070f597fcea
+default,www.ring.gr.jp,133.243.3.209,3400
+default,ftp.ring.gr.jp,133.243.3.209,3400
+# ring.shibaura-it.ac.jp aee8c28793e407b274304070f597fcea
+default,www.ring.gr.jp,202.18.64.24,3400
+default,ftp.ring.gr.jp,202.18.64.24,3400
+# ring.ip-kyoto.ad.jp 075d7eb92a087ecd965b14ead6ad46d0
+default,www.ring.gr.jp,202.245.159.10,0
+default,ftp.ring.gr.jp,202.245.159.10,0
+# ring.omp.ad.jp 6e57d1300e96c5527599af35b823cde4
+default,www.ring.gr.jp,210.159.1.54,700
+default,ftp.ring.gr.jp,210.159.1.54,700
+# ring.ocn.ad.jp b3e87be0b7d8fd7abd160f78dcf82051
+default,www.ring.gr.jp,202.234.233.10,2200
+default,ftp.ring.gr.jp,202.234.233.10,2200
+# ring.iwate-pu.ac.jp 075d7eb92a087ecd965b14ead6ad46d0
+default,www.ring.gr.jp,210.156.40.3,0
+default,ftp.ring.gr.jp,210.156.40.3,0
+# ring.so-net.ne.jp 0f66ec5998ba979fcd1bf17e0b983e21
+default,www.ring.gr.jp,210.132.247.108,9500
+default,ftp.ring.gr.jp,210.132.247.108,9500
+# ring.exp.fujixerox.co.jp 075d7eb92a087ecd965b14ead6ad46d0
+default,www.ring.gr.jp,210.154.149.34,0
+default,ftp.ring.gr.jp,210.154.149.34,0
+# ring.jah.ne.jp b3e87be0b7d8fd7abd160f78dcf82051
+default,www.ring.gr.jp,210.162.2.10,2200
+default,ftp.ring.gr.jp,210.162.2.10,2200
+# ring.astem.or.jp b3e87be0b7d8fd7abd160f78dcf82051
+default,www.ring.gr.jp,133.18.72.10,2200
+default,ftp.ring.gr.jp,133.18.72.10,2200
+# ring.aist.go.jp 075d7eb92a087ecd965b14ead6ad46d0
+default,www.ring.gr.jp,150.29.9.6,0
+default,ftp.ring.gr.jp,150.29.9.6,0
+# ring.data-hotel.net
+default,ring.data-hotel.net,210.81.45.28,0
+# ring.edogawa-u.ac.jp
+default,ring.edogawa-u.ac.jp,210.235.130.17,0
+# ring.jec.ad.jp
+default,ring.jec.ad.jp,210.161.150.21,0
+# ring.toyama-u.ac.jp
+default,ring.toyama-u.ac.jp,160.26.1.22,0
+# ring.tains.tohoku.ac.jp
+default,ring.tains.tohoku.ac.jp,130.34.246.198,0
+# ring.etl.go.jp
+default,ring.etl.go.jp,192.50.77.195,0
+# ring.toyama-ix.net
+default,ring.toyama-ix.net,210.167.6.130,0
+# ring.htcn.ne.jp
+default,ring.htcn.ne.jp,210.167.0.75,0
+# ring.asahi-net.or.jp
+default,ring.asahi-net.or.jp,202.224.39.15,0
+# core.ring.gr.jp
+default,core.ring.gr.jp,150.29.9.6,0
+# ring.crl.go.jp
+default,ring.crl.go.jp,133.243.3.209,0
+# ring.shibaura-it.ac.jp
+default,ring.shibaura-it.ac.jp,202.18.64.24,0
+# ring.ip-kyoto.ad.jp
+default,ring.ip-kyoto.ad.jp,202.245.159.10,0
+# ring.omp.ad.jp
+default,ring.omp.ad.jp,210.159.1.54,0
+# ring.ocn.ad.jp
+default,ring.ocn.ad.jp,202.234.233.10,0
+# ring.iwate-pu.ac.jp
+default,ring.iwate-pu.ac.jp,210.156.40.3,0
+# ring.so-net.ne.jp
+default,ring.so-net.ne.jp,210.132.247.108,0
+# ring.exp.fujixerox.co.jp
+default,ring.exp.fujixerox.co.jp,210.154.149.34,0
+# ring.jah.ne.jp
+default,ring.jah.ne.jp,210.162.2.10,0
+# ring.astem.or.jp
+default,ring.astem.or.jp,133.18.72.10,0
+# ring.aist.go.jp
+default,ring.aist.go.jp,150.29.9.6,0
+# openlab
+default,openlab.ring.gr.jp,150.29.9.5,0
+#end

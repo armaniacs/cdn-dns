@@ -1,0 +1,21 @@
+Usage:
+(You have to install ruby. Because DNS-Balance uses DNS TCP and UDP port, you can't run a named daemon on same machine)
+
+1. Checkout https://osdn.debian.or.jp/repos/cdn by using Subversion
+
+2. Write surrogates list file to resolv. This filename is lists_host_your_domain.rb. 
+(cf. Filename for 'jp.cdn.araki.net' is 'lists_jp_cdn_araki_net.rb').
+
+3. Set crontab for check-surrogates.rb (by normal user account)
+
+ */2 * * * * cd /home/yasu2/Debian-JP/DNS-Balance-2.0 && ruby check-surrogates.rb
+
+  This program will create a file "addr".
+
+4. Make a symlink DNS-Balance/addr -> addr
+
+5. Run DNS-Balance. (by root account)
+ # ruby dns_balance.rb -i 210.157.158.38
+  (-i specifies the address to listen. If you have only a single IP, you don't have to use this option)
+
+6. Check /var/log/syslog and /var/log/daemon.log.

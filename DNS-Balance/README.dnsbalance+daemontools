@@ -1,0 +1,41 @@
+
+      <<dnemontools の配下で DNS Balance を動かす方法>>
+
+ DNS Balance は単独でも動かせますが、 D. J. Bernstein 氏の
+daemontools (http://cr.yp.to/daemontools.html,
+http://djbdns.jp.qmail.org/tools/daemontools/) の元でも動かす事が出来ます。
+
+[やりかた]
+
+1. まず、 daemontools をインストールします。
+2. DNS Balance のインストール位置を決めます。例えば /foo/bar/dnsbalance/root/
+   にします。DNS Balance のプログラムファイルをそこにコピーします。
+   また、これに合わせて dns_balance.rb の変数 $prefix の値を
+   "/foo/bar/dnsbalance/root" に変更して下さい。
+3. /foo/bar/dnsbalance/ に "run" という名前のスタートアップスクリプトを
+   作ります。例えば以下のようにします。以下の例では djbdns と協調動作させる
+   ために "-i" オプションで listen させる IP アドレスを 192.168.0.1 に
+   し、"-d" オプションでこの DNS Balance が動作するドメインを
+   "balancer.example.co.jp" にしています。また、 DNS Balance が使用する
+   メモリを最大 8メガバイトに制限しています。このスクリプトに実行属性を
+   付けて実行できるようにして下さい。
+
+------------------------------
+#!/bin/sh
+exec 2>&1
+exec softlimit -d 8000000 /usr/local/bin/ruby /foo/bar/dnsbalance/root/dns_balance.rb -i 192.168.0.1 -d balancer.example.co.jp:192.168.0.1
+------------------------------
+
+4. ログファイルを記録するために /foo/bar/dnsbalance/log/ を作り、 multilog
+   が起動するようにします。 multilog の設定は daemontools のドキュメントを
+   参照して下さい。
+   ログ記録用のプロセスを起動させるために /foo/bar/dnsbalance/ に t ビット
+   を付加するのを忘れないで下さい。最新版の daemontools ならばこれは必要
+   ありません。
+
+5. svscan を起動し、さらに svscan の監視ディレクトリ(標準では /service/)
+   に "cd /service/ ; ln -s /foo/bar/dnsbalance ." としてリンクを設定すれば
+   動き出します。
+
+
+                  2002/09/08:  横田 裕思 (yokota@netlab.is.tsukuba.ac.jp)

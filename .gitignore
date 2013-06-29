@@ -11,6 +11,13 @@ spec/reports
 test/tmp
 test/version_tmp
 tmp
+maxmind/*.dat
+maxmind/old
+addr
+DNS-Balance/addr
+.svn
+*/.svn
+
 
 # YARD artifacts
 .yardoc

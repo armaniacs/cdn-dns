@@ -1,0 +1,61 @@
+使いかた
+
+0. Rubyをまずインストールします。また、DNSを使用するためbind等他DNSが動作しているホストでは使えません。
+
+1. https://osdn.debian.or.jp/repos/cdn からダウンロードする。
+
+2. 名前を返す候補リストファイルを作る。
+ファイル名は lists_hostname.rb (hostnameの . を _ に変更する)
+例えばjp.cdn.araki.netならば、lists_jp_cdn_araki_net.rbになる。
+
+3. check-surrogates.rb をcronでまわすようにする。
+(例)
+
+ */2 * * * * cd /home/yasu2/Debian-JP/DNS-Balance-2.0 && ruby check-surrogates.rb
+
+これが動くと addr というファイルが作られる。
+
+4. DNS-Balance/addr -> addr のリンクをつくる。
+
+5. DNS-Balanceを動作させる。(これはrootで動いている必要がある)
+
+ # ruby dns_balance.rb 
+
+動作するIPアドレスを指定するならば。-i をつける。
+
+ # ruby dns_balance.rb -i 210.157.158.38
+
+6. /var/log/syslog/daemon.log などを確認する。
+
+ Apr 28 18:06:00 localhost check-surrogates.rb[12288]: 61.115.118.67 return 200
+
+などのような出力が出ていれば問題ない。
+
+-----
+リストファイルの文法について
+
+リストファイルには、3つの変数を設定する必要がある。
+
+- サロゲートIPアドレスと優先度は $surrogates に。
+
+優先度は0から9999までの整数。指定方法は以下のようにする。
+
+$surrogates = {
+  '203.178.137.175' => '9000', # naist
+  '61.115.118.67' => '20', # hanzubon 2007apr5
+}
+
+- 最上流のrsyncサーバのIPアドレスを $first_surrogate に。
+- 最上流のrsyncサーバで使用しているrsync終了のサインとなるファイル名を $tracefile に。
+
+例えば、
+http://hanzubon.jp/ (61.115.118.67) を最上流に設定し、このときの
+ファイルが
+http://hanzubon.jp/debian/project/trace/air.hanzubon.jp
+ならば、
+
+$tracefile = 'air.hanzubon.jp' # hanzubon 2007apr5
+$first_surrogate = '61.115.118.67'
+
+のようになる。
+

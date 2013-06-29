@@ -1,0 +1,157 @@
+
+                            <<DNS Balance>>
+
+ By: YOKOTA Hiroshi <yokota@netlab.is.tsukuba.ac.jp>
+
+
+
+[1. What's this]
+
+ DNS Balance is a load-balancing DNS server.
+Today's Web server, like "kernel.org", "*bsd.org" and Ring Server Project
+(http://www.ring.gr.jp/) are mirrored all over the world. DNS Balance
+selects fast server from all over the world for DNS resolver.
+
+ DNS Balance has these functions:
+
+o Dynamic load balancing.
+o Answer different IP address between DNS client's IP address.
+o Minimun implement. This may be good for security.
+
+
+[2. What you need]
+
+ DNS Balance requires Ruby (http://www.ruby-lang.org/).
+So, you must install it. Some PC-UNIX has binary packages.
+
+
+[3. What you do]
+
+1. Extract the archive in "/usr/local/share". If you want to extract another
+   directory, change "$prefix" in script "dns_balance.rb".
+2. File "addrdb.rb" is the address database. You must edit this for
+   your site.
+
+------------------
+$addr_db = {
+  "130.12.0.0/16" => {         # => Request from 130.12.0.0/16
+                               #    For example, DNS client's IP is
+                               #    "123.45.67.89", search "123.45.67.89/32" to
+                               #    "0.0.0.0/1".
+    "www.foo.com" => [         # => IP address for "www.foo.com"
+                               #    This host name must be lower case character.
+      [[1,2,3,4], 0],          # => IP address and badness information.
+      [[1,2,3,5], 10000],      #    Badness must be 0-10000. 0 is for fastest
+      [[1,2,3,6], 9000],       #    server, and 10000 is for downed server.
+      [[1,2,3,7], 9000],
+    ],
+  },
+  "default" => {               # => If theres nothing to match, use "default".
+    "www.foo.com" => [
+      [[1,2,3,4], 0],
+      [[1,2,3,5], 100],
+      [[1,2,3,6], 1000],
+      [[1,2,3,7], 9000],
+    ],
+    "localhost" => [
+      [[127,0,0,1], 0],
+    ],
+  },
+}
+------------------
+
+3. If your addrdb.rb is too complex to maintain, you can use namespace.rb .
+
+------------------
+$namespace_db = {
+  "127.0.0.0/8"     => "localnet", # Write IP address and its alias name.
+  "192.168.0.0/16"  => "foo-net",  # If client IP is 123.45.67.89, search
+  "130.199.0.0/16"  => "foo-net",  # "123.45.67.89/32" to "0.0.0.0/1".
+  "130.123.12.0/28" => "foo-net",
+}
+------------------
+
+   If you use namespace.rb , you can write this way.
+
+------------------
+$addr_db = {
+  "localnet" => {
+    "www.foo.com" => [
+      [[1,2,3,6], 2000],
+      [[1,2,3,7], 1000],
+    ],
+  },
+  "foo-net" => {
+    "www.foo.com" => [
+      [[1,2,3,4], 0],
+      [[1,2,3,5], 100],
+    ],
+  },
+  "default" => {
+    "www.foo.com" => [
+      [[1,2,3,4], 0],
+      [[1,2,3,5], 10000],
+      [[1,2,3,6], 9000],
+      [[1,2,3,7], 9000],
+    ],
+  },
+}
+------------------
+
+4. You can use "--as" option to use "Autonomous System" information
+   from whois.ra.net .
+
+   whois.ra.net offers AS information.
+---------
+$ whois -h whois.ra.net 192.168.0.1
+route:         192.168.0.0/24
+descr:         Foo networks
+origin:        AS1000   <==================== This is AS information
+member-of:     RS-COMM_FOONET
+mnt-by:        MAINT-AS1000
+changed:       rm@foo.ad.jp 99999999
+source:        BARNET
+---------
+
+   You can use AS information like this.
+
+--------------
+$addr_db = {
+  "AS1000" => {
+    "www.foo.com" => [
+      [[1,2,3,4], 0],
+    ],
+  },
+  "default" => {
+    "www.foo.com" => [
+      [[1,2,3,4], 0],
+      [[1,2,3,5], 10000],
+    ],
+  },
+}
+--------------
+
+
+5. Run DNS Balance. Type "ruby /usr/local/lib/DNS-Balance-x.x/dns_balance.rb"
+   for run DNS Balance.
+
+6. If exists a file named "addr", DNS Balance is loads automatically every
+   5 minutes. This file contains same database as "addrdb.rb".
+   I make some sample script like CSV -> address database converter.
+   See "sample" directory
+
+7. "-i xxx.xxx.xxx.xxx" to specify listen IP address.
+   And "-h" to display some help message.
+
+
+[4. Copyright]
+
+ See README.dns_balance.
+
+ If you want newer version, see my homepage.
+   URL http://www.netlab.is.tsukuba.ac.jp/~yokota/
+       http://www.netlab.is.tsukuba.ac.jp/~yokota/izumi/dns_balance/
+
+ Any questions and suggestions are welcome.
+
+                  2002/09/06: YOKOTA Hiroshi (yokota@netlab.is.tsukuba.ac.jp)

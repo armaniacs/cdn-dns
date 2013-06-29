@@ -1,0 +1,9 @@
+
+                         << DNS Balance Q&A >>
+
+
+Q2 I want to run DNS Balance in many places.
+A2 You must transfer badness data file to all places.
+   You can use "scp" or "rsync" to transfer file.
+
+By: YOKOTA Hiroshi <yokota@netlab.is.tsukuba.ac.jp>
