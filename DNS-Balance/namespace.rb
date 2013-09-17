@@ -1,7 +1,7 @@
 #
 # DNS Balance
 #
-# Е┬╔Е░█Ц┐┤Ц┐╪Ц┌©Ц┐≥Ц┐╪Ц┌╧
+# йлл╬╔г║╪╔©╔ы║╪╔╧
 #
 # By: YOKOTA Hiroshi <yokota@netlab.is.tsukuba.ac.jp>
 

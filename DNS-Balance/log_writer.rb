@@ -1,7 +1,7 @@
 #
 # DNS Balance
 #
-# ãƒ­ã‚°å‡ºåŠ›
+# ¥í¥°½ÐÎÏ
 #
 # By: YOKOTA Hiroshi <yokota@netlab.is.tsukuba.ac.jp>
 
@@ -9,7 +9,7 @@
 
 require "util.rb"
 
-# ãƒ­ã‚°å‡ºåŠ›
+# ¥í¥°½ÐÎÏ
 def logger(mutex, addr, status, name = "", namespace = "", answers = [])
   out = sprintf("%s:%s:%s:%s",
 		addr,

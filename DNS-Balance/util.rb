@@ -1,14 +1,13 @@
-# -*- coding: utf-8 -*-
 #
 # DNS Balance
 #
-# é›‘ç”¨
+# »¨ÍÑ
 #
 # By: YOKOTA Hiroshi <yokota@netlab.is.tsukuba.ac.jp>
 
 # $Id: util.rb,v 1.7 2003/06/13 22:05:38 elca Exp $
 
-# DNS ãƒ‘ã‚±ãƒƒãƒˆä¸­ã® RR åã‚’äººé–“ã«èª­ã¿ã‚„ã™ã„å½¢å¼ã«å¤‰æ›
+# DNS ¥Ñ¥±¥Ã¥ÈÃæ¤Î RR Ì¾¤ò¿Í´Ö¤ËÆÉ¤ß¤ä¤¹¤¤·Á¼°¤ËÊÑ´¹
 def dnsstr_to_str(dnsstr)
   arr = []
   c = 0
@@ -33,12 +32,12 @@ def str_to_dnsstr(str)
   }.join("") + "\0"
 end
 
-# æ–‡å­—åˆ—ã‚’ DNS TXT RR ã«ã™ã‚‹
+# Ê¸»úÎó¤ò DNS TXT RR ¤Ë¤¹¤ë
 def str_to_dnstxt(str)
   return str_split(str,127).collect {|i| i.size.chr + i}.join("")
 end
 
-# IP ã‚¢ãƒ‰ãƒ¬ã‚¹è¡¨è¨˜ã‹ã‚‰ãã‚Œã«è¦‹åˆã£ãŸ4ãƒã‚¤ãƒˆã®æ–‡å­—åˆ—ã‚’ç”Ÿæˆ
+# IP ¥¢¥É¥ì¥¹É½µ­¤«¤é¤½¤ì¤Ë¸«¹ç¤Ã¤¿4¥Ğ¥¤¥È¤ÎÊ¸»úÎó¤òÀ¸À®
 #
 # ex) "127.0.0.1" => "\x7f\x0\x0\x1"
 def str_to_ipstr(str)
@@ -76,7 +75,7 @@ def ip6str_to_str(str)
 end
     
 
-# æ–‡å­—åˆ—ã‚’æŒ‡å®šæ–‡å­—æ•°ã§åŒºåˆ‡ã‚‹
+# Ê¸»úÎó¤ò»ØÄêÊ¸»ú¿ô¤Ç¶èÀÚ¤ë
 def str_split(str, num)
   a = Array.new
   (0...((str.length + num - 1)/num).to_i).each {
@@ -86,7 +85,7 @@ def str_split(str, num)
   return a
 end
 
-# ipstr ã«å¯¾ã—ã¦ãƒ“ãƒƒãƒˆãƒã‚¹ã‚¯ã‚’ã‹ã‘ã‚‹
+# ipstr ¤ËÂĞ¤·¤Æ¥Ó¥Ã¥È¥Ş¥¹¥¯¤ò¤«¤±¤ë
 def ipstr_mask(ipstr, mask)
   n = ipstr.unpack("N")[0] & (0xffffffff << (32 - mask))
   return [n].pack("N")
@@ -99,7 +98,7 @@ def ip_mask(str, mask)
   return ipstr_to_str(ans)
 end
 
-# IP ã‚¢ãƒ‰ãƒ¬ã‚¹ã® /32 ã‹ã‚‰ /1 ã¾ã§ã®ãƒã‚¹ã‚¯ã‚’ã‹ã‘ãŸã‚¢ãƒ‰ãƒ¬ã‚¹ã®ãƒªã‚¹ãƒˆã‚’è¿”ã™
+# IP ¥¢¥É¥ì¥¹¤Î /32 ¤«¤é /1 ¤Ş¤Ç¤Î¥Ş¥¹¥¯¤ò¤«¤±¤¿¥¢¥É¥ì¥¹¤Î¥ê¥¹¥È¤òÊÖ¤¹
 def ip_masklist(str)
 
   netaddrs = []
@@ -148,7 +147,7 @@ def max(a, b)
   return (if a < b then b else a end)
 end
 
-# é…åˆ—ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã«ä¸¦ã¹å¤‰ãˆã‚‹
+# ÇÛÎó¤ò¥é¥ó¥À¥à¤ËÊÂ¤ÙÊÑ¤¨¤ë
 def array_randomize(arr)
   return []  if arr.size == 0
   return arr if arr.size == 1

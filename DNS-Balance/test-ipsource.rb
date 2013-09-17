@@ -1,5 +1,4 @@
 #!/usr/bin/ruby
-# -*- coding: utf-8 -*-
 
 $fgeoip = File.dirname(__FILE__) + '/../maxmind/GeoIP.dat'
 $fgeoipasn = File.dirname(__FILE__) + '/../maxmind/GeoIPASNum.dat'
