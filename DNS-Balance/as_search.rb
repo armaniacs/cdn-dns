@@ -67,7 +67,7 @@ def as_search(str)
 
   netaddrs = [str] + ip_masklist(str)
 
-  # ¤Ş¤º¥­¥ã¥Ã¥·¥å¤òÃµº÷
+  # ã¾ãšã‚­ãƒ£ãƒƒã‚·ãƒ¥ã‚’æ¢ç´¢
   netaddrs.each {
     |i|
     if Whois_cache[i] != nil
@@ -76,15 +76,15 @@ def as_search(str)
     end
   }
 
-  # Æ±¤¸Í×µá¤¬½¸Ãæ¤·¤¿»ş¤Ï ra.net ¤ËÌä¤¤¹ç¤ï¤»¤¬½¸Ãæ¤·¤Ê¤¤¤è¤¦¤Ë
-  # ¥í¥Ã¥¯¤·¤Æ¤ª¤¯¡£
+  # åŒã˜è¦æ±‚ãŒé›†ä¸­ã—ãŸæ™‚ã¯ ra.net ã«å•ã„åˆã‚ã›ãŒé›†ä¸­ã—ãªã„ã‚ˆã†ã«
+  # ãƒ­ãƒƒã‚¯ã—ã¦ãŠãã€‚
   Whois_cache[str] = {
-    "timeout" => Time.now.to_i + 600,   # 10Ê¬
+    "timeout" => Time.now.to_i + 600,   # 10åˆ†
     "as"      => "default"
   }
 
 
-  # ra.net ¤ËÌä¤¤¹ç¤ï¤»¡£·ë²Ì¤¬ÆÀ¤é¤ì¤¿¾ì¹ç¤Ï¤½¤Î·ë²Ì¤Ç¥­¥ã¥Ã¥·¥å¤ò¾å½ñ¤­¤¹¤ë¡£
+  # ra.net ã«å•ã„åˆã‚ã›ã€‚çµæœãŒå¾—ã‚‰ã‚ŒãŸå ´åˆã¯ãã®çµæœã§ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã‚’ä¸Šæ›¸ãã™ã‚‹ã€‚
   tmp = as_get(str)
   if tmp != nil
     Whois_cache.delete(str)
@@ -94,28 +94,28 @@ def as_search(str)
 
     ML.log("add AS cache: " + net + "=>" + as)
     Whois_cache[net] = {
-      "timeout" => Time.now.to_i + 10800, # 3»ş´Ö
+      "timeout" => Time.now.to_i + 10800, # 3æ™‚é–“
       "as"      => as
     }
     return tmp["as"]
   end
 
-  # ¤¦¤Ş¤¯Ìä¤¤¹ç¤ï¤»¤Î·ë²Ì¤¬ÆÀ¤é¤ì¤Ê¤¤¾ì¹ç¤Ï¥­¥ã¥Ã¥·¥å¤ò¤½¤Î¤Ş¤Ş¤Ë¤·¤Æ
-  # nil ¤òÊÖ¤¹¡£
+  # ã†ã¾ãå•ã„åˆã‚ã›ã®çµæœãŒå¾—ã‚‰ã‚Œãªã„å ´åˆã¯ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã‚’ãã®ã¾ã¾ã«ã—ã¦
+  # nil ã‚’è¿”ã™ã€‚
   ML.log("add NULL AS cache: " + str + "=>default")
 
   return nil
 end
 
-# Äê´üÅª¤Ë¸Å¤¤ÆâÍÆ¤òºï½ü
+# å®šæœŸçš„ã«å¤ã„å†…å®¹ã‚’å‰Šé™¤
 Thread.start do
   loop do
     sleep 15
-    # ¥­¥ã¥Ã¥·¥å¤Ë»ş´ÖÀ©¸Â¤ò¤«¤±¤ë
+    # ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã«æ™‚é–“åˆ¶é™ã‚’ã‹ã‘ã‚‹
     cache_timeout(Whois_cache, "as timeout: ")
 
     sleep 15
-    # ¥­¥ã¥Ã¥·¥å¤Ë¥µ¥¤¥ºÀ©¸Â¤ò¤«¤±¤ë
+    # ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã«ã‚µã‚¤ã‚ºåˆ¶é™ã‚’ã‹ã‘ã‚‹
     cache_reduction(Whois_cache, 2000, "as overflow: ")
 
   end
