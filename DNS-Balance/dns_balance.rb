@@ -38,8 +38,10 @@ require 'util.rb'
 require 'namespace.rb'
 require 'addrdb.rb'
 
-require File.dirname(__FILE__) + '/../geoip/lib/geoip'
-$LOAD_PATH.freeze ## for geoip
+require 'rubygems'
+require 'geoip'
+#require File.dirname(__FILE__) + '/../geoip/lib/geoip'
+#$LOAD_PATH.freeze ## for geoip
 
 #####################################################################
 # ユーザ定義例外
