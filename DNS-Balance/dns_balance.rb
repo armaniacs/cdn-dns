@@ -30,13 +30,13 @@ require 'socket'
 require 'thread'
 require 'optparse'
 
-require 'datatype.rb'
-require 'multilog.rb'
-require 'log_writer.rb'
-require 'util.rb'
+require './datatype.rb'
+require './multilog.rb'
+require './log_writer.rb'
+require './util.rb'
 
-require 'namespace.rb'
-require 'addrdb.rb'
+require './namespace.rb'
+require './addrdb.rb'
 
 require 'rubygems' # ruby1.8
 require 'geoip'

@@ -1,3 +1,4 @@
+# -*- coding: euc-jp -*-
 #
 # AS namespace
 #
@@ -7,9 +8,9 @@
 require "socket"
 require "timeout"
 
-require "cache.rb"
-require "util.rb"
-require "datatype.rb"
+require "./cache.rb"
+require "./util.rb"
+require "./datatype.rb"
 
 Ra_host = [
   "198.108.0.18",  # whois.ra.net
