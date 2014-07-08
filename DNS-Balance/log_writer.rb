@@ -7,7 +7,7 @@
 
 # $Id: log_writer.rb,v 1.6 2003/06/13 22:05:38 elca Exp $
 
-require "util.rb"
+require "./util.rb"
 
 # ログ出力
 def logger(mutex, addr, status, name = "", namespace = "", answers = [])
