@@ -30,3 +30,12 @@ test run
 1. open two terminals.(T1 and T2)
 1. At T1, `$ make dnstest`. Start dns_balance.rb running in Foreground mode and waiting port 10053.
 1. At T2, `$ dig @127.0.0.1 -p 10053 deb.cdn.araki.net`. If you get one or more IP address as a result, your test is succeeded.
+=======
+Prepare condition for run
+----------------------------
+
+1. `cd DNS-Balance`
+1. install rubygems 
+1. install geoip with `# bundle install`
+
+

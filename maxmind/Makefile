@@ -4,7 +4,7 @@ all: ip city asnum
 
 backup:
 	-mkdir old
-	cp *.dat old
+	-cp *.dat old
 
 ip:
 	-cp GeoIP.dat old
