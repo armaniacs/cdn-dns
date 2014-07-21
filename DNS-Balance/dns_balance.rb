@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
-# -*- coding: euc-jp -*-
+# -*- coding: utf-8 -*-
 #
-# DNS Balance --- Æ°ÅªÉé²ÙÊ¬»¶¤ò¹Ô¤Ê¤¦ DNS ¥µ¡¼¥Ğ
+# DNS Balance --- å‹•çš„è² è·åˆ†æ•£ã‚’è¡Œãªã† DNS ã‚µãƒ¼ãƒ
 #
 # By: YOKOTA Hiroshi <yokota@netlab.is.tsukuba.ac.jp>
 
@@ -10,7 +10,7 @@
 ## Modify for debian cdn 
 ## By ARAKI Yasuhiro <ar@debian.org>
 
-# DNS Balance ¤ÎÂ¸ºß¤¹¤ë¥Ñ¥¹Ì¾
+# DNS Balance ã®å­˜åœ¨ã™ã‚‹ãƒ‘ã‚¹å
 if ENV["ROOT"] == nil
   warn("\"ROOT\" environment is recommended. Use current directory in this time.")
   PREFIX = "."
@@ -44,7 +44,7 @@ require 'geoip'
 #$LOAD_PATH.freeze ## for geoip
 
 #####################################################################
-# ¥æ¡¼¥¶ÄêµÁÎã³°
+# ãƒ¦ãƒ¼ã‚¶å®šç¾©ä¾‹å¤–
 class DnsNotImplementedError < StandardError ; end
 class DnsTruncatedError      < StandardError ; end
 class DnsNoQueryError        < StandardError ; end
@@ -55,9 +55,9 @@ class DnsNoErrorError < StandardError ; end
 Socket::do_not_reverse_lookup = true
 
 ###################################################################
-# ´Ø¿ô
+# é–¢æ•°
 
-# DNS ¥Ñ¥±¥Ã¥È¤«¤é¼ÁÌäÆâÍÆ¤È¼ÁÌä¤Î¥¿¥¤¥×¤È¼ÁÌä¤Î¥¯¥é¥¹¤ò¼è¤ê½Ğ¤¹
+# DNS ãƒ‘ã‚±ãƒƒãƒˆã‹ã‚‰è³ªå•å†…å®¹ã¨è³ªå•ã®ã‚¿ã‚¤ãƒ—ã¨è³ªå•ã®ã‚¯ãƒ©ã‚¹ã‚’å–ã‚Šå‡ºã™
 def parse_packet(packet)
   (number, flags, num_q, ans_rr, ort_rr, add_rr, str) =  packet.unpack("a2 a2 a2 a2 a2 a2 a*")
 
@@ -73,14 +73,14 @@ def parse_packet(packet)
   return [q, q_type, q_class]
 end
 
-# ¥¯¥é¥¤¥¢¥ó¥È¤Î¾ğÊó¤òÊÖ¤¹
+# ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆã®æƒ…å ±ã‚’è¿”ã™
 def get_client_data(cli)
   (family, port, fqdn, ipaddr) = cli
   return {"family" => family, "port" => port, "fqdn" => fqdn, "addr" => ipaddr}
 end
 
-# ¥¯¥é¥¤¥¢¥ó¥È¤ÎIP¥¢¥É¥ì¥¹¤Ë¤è¤Ã¤ÆÊÖÅúÆâÍÆ¤òÊÑ¤¨¤ë»ö¤¬½ĞÍè¤ë
-# Ì¾Á°¶õ´Ö¤òÁªÂò¡£Åö¤Æ¤Ï¤Ş¤ëÊª¤¬¤Ê¤±¤ì¤Ğ "default" ¤Ë¤Ê¤ë
+# ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆã®IPã‚¢ãƒ‰ãƒ¬ã‚¹ã«ã‚ˆã£ã¦è¿”ç­”å†…å®¹ã‚’å¤‰ãˆã‚‹äº‹ãŒå‡ºæ¥ã‚‹
+# åå‰ç©ºé–“ã‚’é¸æŠã€‚å½“ã¦ã¯ã¾ã‚‹ç‰©ãŒãªã‘ã‚Œã° "default" ã«ãªã‚‹
 def select_namespace(addrstr, name)
 
   netaddrs = [addrstr] + ip_masklist(addrstr)
@@ -106,7 +106,7 @@ def select_namespace(addrstr, name)
 
   # AS namespace
   if OPT["as"] &&
-      # RFC1918 / ¥×¥é¥¤¥Ù¡¼¥È¥¢¥É¥ì¥¹¤Ï¤É¤³¤Î AS ¤Ë¤âÂ°¤·¤Æ¤¤¤Ê¤¤
+      # RFC1918 / ãƒ—ãƒ©ã‚¤ãƒ™ãƒ¼ãƒˆã‚¢ãƒ‰ãƒ¬ã‚¹ã¯ã©ã“ã® AS ã«ã‚‚å±ã—ã¦ã„ãªã„
       ip_mask(addrstr,  8) != "10.0.0.0"      &&
       ip_mask(addrstr, 12) != "172.16.0.0"    &&
       ip_mask(addrstr, 16) != "192.168.0.0"   &&
@@ -179,7 +179,7 @@ def geoip_search_asn(str)
 end
 
 
-# ½Å¤ß¤Ä¤­ÊÑ¿ô¤Î¤¿¤á¤ÎÉ½¤òºî¤ë
+# é‡ã¿ã¤ãå¤‰æ•°ã®ãŸã‚ã®è¡¨ã‚’ä½œã‚‹
 def make_rand_array(namespace, name)
   rnd_max = 0
   rnd_slesh = []
@@ -189,18 +189,18 @@ def make_rand_array(namespace, name)
 	 if i[1] >= 10000
          	next
          else
-    		rnd_max = rand(rnd_max).to_i + (10000 - min(10000, i[1])) # badness ¤ÎºÇÂçÃÍ¤Ï 10000
+    		rnd_max = rand(rnd_max).to_i + (10000 - min(10000, i[1])) # badness ã®æœ€å¤§å€¤ã¯ 10000
     		rnd_slesh.push(rnd_max)
 	end
   }
   return [rnd_max, rnd_slesh]
 end
 
-# ½Å¤ß¤Ä¤­Íğ¿ô¤ÇÁªÂò
+# é‡ã¿ã¤ãä¹±æ•°ã§é¸æŠ
 def select_rand_array(namespace, name, size)
   (rnd_max, rnd_slesh) = make_rand_array(namespace, name)
 
-  if rnd_max == 0  # Á´¤Æ¤Î¥Û¥¹¥È¤Î Badness ¤¬ 10000 ¤À¤Ã¤¿
+  if rnd_max == 0  # å…¨ã¦ã®ãƒ›ã‚¹ãƒˆã® Badness ãŒ 10000 ã ã£ãŸ
     return []
   end
 
@@ -222,21 +222,21 @@ def select_rand_array(namespace, name, size)
   return arr
 end
 
-# ¥Ñ¥±¥Ã¥È¤ÎÀµÅöÀ­¥Á¥§¥Ã¥¯
+# ãƒ‘ã‚±ãƒƒãƒˆã®æ­£å½“æ€§ãƒã‚§ãƒƒã‚¯
 def check_packet(q, q_type, q_class)
-  # ¥¾¡¼¥óÅ¾Á÷¤ÏÌµ¤·
+  # ã‚¾ãƒ¼ãƒ³è»¢é€ã¯ç„¡ã—
   if q_type == DnsType::AXFR
     ML.log("AXFR: " + q.dump + ":" + q_type.dump + ":" + q_class.dump)
     raise DnsNotImplementedError
   end
 
-  # IP(UDP) ¤Î¤ß¼õ¤±ÉÕ¤±
+  # IP(UDP) ã®ã¿å—ã‘ä»˜ã‘
   if !(q_class == DnsClass::INET || q_class == DnsClass::ANY)
     ML.log("noIP: " + q.dump + ":" + q_type.dump + ":" + q_class.dump)
     raise DnsNoQueryError
   end
 
-  # »ÈÍÑÉÔ²Ä¤ÊÊ¸»ú¤¬¤¢¤ë
+  # ä½¿ç”¨ä¸å¯ãªæ–‡å­—ãŒã‚ã‚‹
   if (q =~ /[()<>@,;:\\\"\.\[\]]/) != nil
     ML.log("char: " + q.dump + ":" + q_type.dump + ":" + q_class.dump)
     raise DnsNoQueryError
@@ -246,7 +246,7 @@ end
 
 def check_type(q, q_type, q_class, namespace)
 
-  # ¥ì¥³¡¼¥É¤ÏÂ¸ºß¤¹¤ë¤¬¥¿¥¤¥×¤¬°ã¤¦
+  # ãƒ¬ã‚³ãƒ¼ãƒ‰ã¯å­˜åœ¨ã™ã‚‹ãŒã‚¿ã‚¤ãƒ—ãŒé•ã†
   if q_type != DnsType::A &&
       q_type != DnsType::ANY &&
       $addr_db[namespace] != nil &&
@@ -255,7 +255,7 @@ def check_type(q, q_type, q_class, namespace)
     raise DnsNoErrorError
   end
 
-  # A/ANY ¥ì¥³¡¼¥É¤Î¤ß¼õ¤±ÉÕ¤±
+  # A/ANY ãƒ¬ã‚³ãƒ¼ãƒ‰ã®ã¿å—ã‘ä»˜ã‘
   if q_type != DnsType::A && q_type != DnsType::ANY
     ML.log("noA: " + q.dump + ":" + q_type.dump + ":" + q_class.dump)
     raise DnsNoQueryError
@@ -264,7 +264,7 @@ end
 
 def run
   #
-  # ¥¢¥É¥ì¥¹¥Ç¡¼¥¿¥Ù¡¼¥¹¤ÎÆ°Åª¹¹¿·
+  # ã‚¢ãƒ‰ãƒ¬ã‚¹ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã®å‹•çš„æ›´æ–°
   #
   $t_db = Thread::start {
     loop {
@@ -277,7 +277,7 @@ def run
           ML.log("reload failed")
         end
       end
-      sleep(2*60) # 5 Ê¬Ëè¤Ë¹¹¿·
+      sleep(2*60) # 5 åˆ†æ¯ã«æ›´æ–°
     }
   }
 
@@ -299,7 +299,7 @@ def run
 
 
   #
-  # ¥á¥¤¥ó¥ë¡¼¥×
+  # ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒ—
   #
   loop {
     (packet, client) = $gs.recvfrom(1024)
@@ -345,34 +345,46 @@ def run
           raise DnsNoMoreResourceError
         end
 
-        # ÊÖÅúÀ¸À®
+        # è¿”ç­”ç”Ÿæˆ
         r = packet[0,12] + q + q_type + q_class
-        r[2] |= 0x84  # answer & authenticated
-        r[3] = 0      # no error
+
+        if RUBY_VERSION == "1.8.7"
+          r[2] |= 0x84  # answer & authenticated
+          r[3] = 0      # no error
+        else
+          t_hoge = r[2].ord | 0x84
+          r[2] = [t_hoge].pack("C")
+          r[3] = [000].pack("C")
+        end
+
 
         ans_addrs = []
         a_array.each {
           |i|
           addr = $addr_db[namespace][name][i][0]
-          ans_addrs.push(addr)   # ¥í¥°½ĞÎÏÍÑ
+          ans_addrs.push(addr)   # ãƒ­ã‚°å‡ºåŠ›ç”¨
 
-          # TTL ÁªÂò¡£¶á¤¤½ê¤¬¤¢¤ë»ö¤¬Ê¬¤«¤Ã¤Æ¤¤¤ë¤Ê¤é TTL ¤òÄ¹¤¯¤¹¤ë
+          # TTL é¸æŠã€‚è¿‘ã„æ‰€ãŒã‚ã‚‹äº‹ãŒåˆ†ã‹ã£ã¦ã„ã‚‹ãªã‚‰ TTL ã‚’é•·ãã™ã‚‹
           if (a_array.size == 1)
-            ### ttl = "\0\0\x0e\x10" # 1»ş´Ö # out by ar@debian.org
-            ttl = "\0\0\0\x3c"   # 60ÉÃ
+            ### ttl = "\0\0\x0e\x10" # 1æ™‚é–“ # out by ar@debian.org
+            ttl = "\0\0\0\x3c"   # 60ç§’
           else
-            ttl = "\0\0\0\x3c"   # 60ÉÃ
+            ttl = "\0\0\0\x3c"   # 60ç§’
           end
 
-          # ÊÖÅúÀ¸À®¡£ ¥ª¥Õ¥»¥Ã¥È¤Ï 0x000c
-          r += "\xc0\x0c" + DnsType::A + DnsClass::INET + ttl + "\0\4" + addr.pack("CCCC")
+          # è¿”ç­”ç”Ÿæˆã€‚ ã‚ªãƒ•ã‚»ãƒƒãƒˆã¯ 0x000c
+          if RUBY_VERSION == "1.8.7"
+            r += "\xc0\x0c" + DnsType::A + DnsClass::INET + ttl + "\0\4" + addr.pack("CCCC")
+          else
+            r += "\xc0\x0c".b + DnsType::A.b + DnsClass::INET.b + ttl.b + "\0\4".b + addr.pack("CCCC")
+          end
         }
 
-        # ÊÖÅú¤Î¿ô¤ò¥»¥Ã¥È
+        # è¿”ç­”ã®æ•°ã‚’ã‚»ãƒƒãƒˆ
         r[6,2] = [a_array.size].pack("n")
-        r[8,4] = "\0\0\0\0"
+        r[8,4] = "\0\0\0\0".b
 
-        # Ä¹²á¤®¤¿¤éºï¤ë
+        # é•·éããŸã‚‰å‰Šã‚‹
         if r.length > 512
           raise DnsTruncatedError
         end
@@ -381,44 +393,64 @@ def run
 
       rescue DnsNotImplementedError
         r = packet[0,12] + q + q_type + q_class
-        r[2] |= 0x80  # answer
-        r[2] &= ~0x04 # not authenticated
-        r[3] = 0
-        r[3] |= 0x04  # not implemented error
-        r[6,6] = "\0\0\0\0\0\0"
+        t2_hoge = r[2].ord | 0x80
+        t2_hoge = t2_hoge & ~0x04
+        r[2] = [t2_hoge].pack("C")
+        #r[2] |= 0x80  # answer
+        #r[2] &= ~0x04 # not authenticated
+        t3_hoge = 0 | 0x04
+        r[3] = [t3_hoge].pack("C")
+        #r[3] = 0
+        #r[3] |= 0x04  # not implemented error
+        r[6,6] = "\0\0\0\0\0\0".b
         status = "NotImpl"
 
       rescue DnsTruncatedError
-        # Ä¹²á¤®¤ë»ş¤Ïºï¤Ã¤Æ¥Õ¥é¥°¤òÎ©¤Æ¤ë
+        # é•·éãã‚‹æ™‚ã¯å‰Šã£ã¦ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹
         r = r[0,512]
-        r[2] |= 0x02
+        #r[2] |= 0x02
+        t2_hoge = r[2].ord | 0x02
+        r[2] = [t2_hoge].pack("C")        
         status = "Truncated"
 
       rescue DnsNoErrorError
         r = packet[0,12] + q + q_type + q_class
-        r[2] |= 0x84  # answer & authenticated
-        r[3] = 0      # no error
+        #r[2] |= 0x84  # answer & authenticated
+        #r[3] = 0      # no error
+        t_hoge = r[2].ord | 0x84
+        r[2] = [t_hoge].pack("C")
+        r[3] = [000].pack("C")        
 
-        r[6,6] = "\0\0\0\0\0\0"
+        r[6,6] = "\0\0\0\0\0\0".b
 
         status = "NoError"
 
       rescue DnsNoQueryError,DnsNoMoreResourceError,NoMethodError,StandardError
         r = packet[0,12] + q + q_type + q_class
-        r[2] |= 0x84  # answer & authenticated
-        r[3] = 0
-        r[3] |= 0x03  # name error
-        r[6,6] = "\0\0\0\0\0\0"
+        t_hoge = r[2].ord | 0x84
+        r[2] = [t_hoge].pack("C")        
+        #r[2] |= 0x84  # answer & authenticated
+        #r[3] = 0
+        #r[3] |= 0x03  # name error
+        t3_hoge = 0 | 0x03
+        r[3] = [t3_hoge].pack("C")
+        
+        r[6,6] = "\0\0\0\0\0\0".b
         status = "NoQuery"
 
       rescue
-        # ¤³¤³¤Ë¤ÏÍè¤Ê¤¤¤Ï¤º
+        # ã“ã“ã«ã¯æ¥ãªã„ã¯ãš
         r = packet[0,12] + q + q_type + q_class
-        r[2] |= 0x80  # answer
-        r[2] &= ~0x04 # not authenticated
-        r[3] = 0
-        r[3] |= 0x05  # query refused error
-        r[6,6] = "\0\0\0\0\0\0"
+        #r[2] |= 0x80  # answer
+        #r[2] &= ~0x04 # not authenticated
+        t2_hoge = r[2].ord | 0x80
+        t2_hoge = t2_hoge & ~0x04
+        r[2] = [t2_hoge].pack("C")
+        #r[3] = 0
+        #r[3] |= 0x05  # query refused error
+        t3_hoge = 0 | 0x05
+        r[3] = [t3_hoge].pack("C")
+        r[6,6] = "\0\0\0\0\0\0".b
         status = "other"
       end
 

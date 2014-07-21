@@ -1,3 +1,4 @@
+# -*- coding: euc-jp -*-
 #
 # DNS Balance
 #
@@ -16,10 +17,14 @@ def dnsstr_to_str(dnsstr)
     break if dnsstr.size <= c
     break if dnsstr[c] == 0
 
-    arr.push(dnsstr[c+1, dnsstr[c]])
-    c += dnsstr[c]+1
+    arr.push(dnsstr[c+1, dnsstr[c].ord])
+    c += dnsstr[c].ord+1
   end
 
+  if arr.last == ""
+    arr.pop
+  end
+  
   return arr.join(".")
 end
 
